@@ -119,7 +119,7 @@
 		compatible = "novatek,lgd";
 		reg = <0>;
 
-		backlight = <&backlight>;
+		// backlight = <&backlight>;
 
 		port {
 			panel_in: endpoint {
