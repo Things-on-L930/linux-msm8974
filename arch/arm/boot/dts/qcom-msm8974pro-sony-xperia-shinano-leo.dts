@@ -58,6 +58,20 @@
 			wakeup-source;
 		};
 	};
+
+	vreg_wlan: wlan-regulator {
+		compatible = "regulator-fixed";
+
+		regulator-name = "wl-reg";
+		regulator-min-microvolt = <3300000>;
+		regulator-max-microvolt = <3300000>;
+
+		gpio = <&tlmm 26 GPIO_ACTIVE_HIGH>;
+		enable-active-high;
+
+		pinctrl-names = "default";
+		pinctrl-0 = <&wlan_regulator_pin>;
+	};
 };
 
 &blsp1_i2c6 {
@@ -125,7 +139,7 @@
 		compatible = "novatek,lgd";
 		reg = <0>;
 
-		// backlight = <&backlight>;
+		backlight = <&pm8941_wled>;
 
 		port {
 			panel_in: endpoint {
@@ -411,6 +425,17 @@
 			regulator-boot-on;
 		};
 	};
+};
+
+&pm8941_wled {
+	status = "okay";
+
+	qcom,cs-out;
+	qcom,current-limit = <24>;
+	qcom,current-boost-limit = <805>;
+	qcom,switching-freq = <800>;
+	qcom,ovp = <29>;
+	qcom,num-strings = <2>;
 };
 
 &sdhc_1 {
